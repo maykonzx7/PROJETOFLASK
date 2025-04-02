@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obrigado por Assistir | Apresentação Flask</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --accent: #5a9bd4;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .thank-you-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+        }
+        
+        .thank-you-content {
+            max-width: 800px;
+            padding: 3rem;
+            border-radius: 15px;
+            background-color: rgba(30, 30, 30, 0.7);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(90, 155, 212, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .thank-you-content:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(90, 155, 212, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(5%, 5%) rotate(5deg); }
+            50% { transform: translate(10%, 0) rotate(0deg); }
+            75% { transform: translate(5%, -5%) rotate(-5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(90, 155, 212, 0.3);
+        }
+        
+        .lead {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+        }
+        
+        .btn-contact {
+            background-color: var(--accent);
+            color: #121212;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 0 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-contact:hover {
+            background-color: #4a8bc4;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(90, 155, 212, 0.4);
+            color: #121212;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            padding: 10px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 0 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(90, 155, 212, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(90, 155, 212, 0.2);
+            color: var(--accent);
+        }
+        
+        .social-links {
+            margin-top: 3rem;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent);
+            color: #121212;
+            transform: translateY(-5px);
+        }
+        
+        footer {
+            background-color: var(--darker-bg);
+            color: var(--text-secondary);
+            padding: 1.5rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .flask-icon {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you-container">
+        <div class="thank-you-content">
+            <div class="flask-icon">
+                <i class="fab fa-python"></i>
+            </div>
+            <h1>Obrigado por Assistir!</h1>
+            <p class="lead">Agradecemos sua presença e atenção durante nossa apresentação sobre o Flask Framework.</p>
+            
+            <div class="mb-4">
+                <p>Esperamos que tenha sido útil e esclarecedor. Se tiver alguma dúvida ou quiser saber mais, entre em contato:</p>
+            </div>
+            
+            <div class="buttons-container mb-5">
+                <a href="#resources" class="btn-outline">
+                    <i class="fas fa-book me-2"></i>Recursos
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    
+    <section id="resources" style="background-color: var(--darker-bg); padding: 4rem 0;">
+        <div class="container">
+            <h2 class="text-center mb-5" style="color: var(--accent); font-weight: 700;">Recursos Adicionais</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100" style="background-color: var(--dark-bg); border: 1px solid rgba(255, 255, 255, 0.05);">
+                        <div class="card-body text-center">
+                            <i class="fas fa-book fa-3x mb-3" style="color: var(--accent);"></i>
+                            <h4>Documentação Oficial</h4>
+                            <p style="color: var(--text-secondary);">Acesse a documentação completa do Flask para todos os detalhes.</p>
+                            <a href="https://flask.palletsprojects.com/" target="_blank" class="btn btn-sm btn-outline-primary" style="border-color: var(--accent); color: var(--accent);">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100" style="background-color: var(--dark-bg); border: 1px solid rgba(255, 255, 255, 0.05);">
+                        <div class="card-body text-center">
+                            <i class="fas fa-graduation-cap fa-3x mb-3" style="color: var(--accent);"></i>
+                            <h4>Tutoriais</h4>
+                            <p style="color: var(--text-secondary);">Aprenda com os melhores tutoriais disponíveis online.</p>
+                            <a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world" target="_blank" class="btn btn-sm btn-outline-primary" style="border-color: var(--accent); color: var(--accent);">Aprender</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100" style="background-color: var(--dark-bg); border: 1px solid rgba(255, 255, 255, 0.05);">
+                        <div class="card-body text-center">
+                            <i class="fas fa-code-branch fa-3x mb-3" style="color: var(--accent);"></i>
+                            <h4>Exemplos no GitHub</h4>
+                            <p style="color: var(--text-secondary);">Explore projetos de exemplo com código-fonte disponível.</p>
+                            <a href="https://github.com/mjhea0/awesome-flask" target="_blank" class="btn btn-sm btn-outline-primary" style="border-color: var(--accent); color: var(--accent);">Explorar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p class="mb-0">© 2025 Apresentação Flask Framework. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

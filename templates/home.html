@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Framework for Python</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --flask-blue: #2b5b84;
+            --flask-light-blue: #5a9bd4;
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --card-bg: #1e1e1e;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --accent: #5a9bd4;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background-color: var(--darker-bg);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--accent) !important;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary) !important;
+            font-weight: 500;
+            margin: 0 8px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent) !important;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            padding: 100px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .flask-logo {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(90, 155, 212, 0.3));
+            transition: transform 0.5s;
+        }
+        
+        .flask-logo:hover {
+            transform: scale(1.03);
+        }
+        
+        .hero-text {
+            padding-left: 40px;
+        }
+        
+        .section-title {
+            color: var(--accent);
+            position: relative;
+            margin-bottom: 40px;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            border-radius: 2px;
+        }
+        
+        .feature-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s;
+            height: 100%;
+            padding: 30px;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(90, 155, 212, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .code-block {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            border-radius: 8px;
+            padding: 25px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .keyword {
+            color: #ff7b72;
+        }
+        
+        .function {
+            color: #d2a8ff;
+        }
+        
+        .string {
+            color: #a5d6ff;
+        }
+        
+        .comment {
+            color: #8b949e;
+            font-style: italic;
+        }
+        
+        .btn-flask {
+            background-color: var(--accent);
+            color: #121212;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-flask:hover {
+            background-color: #4a8bc4;
+            color: #121212;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(90, 155, 212, 0.4);
+        }
+        
+        .btn-outline-flask {
+            background-color: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            padding: 10px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline-flask:hover {
+            background-color: rgba(90, 155, 212, 0.1);
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(90, 155, 212, 0.2);
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(90, 155, 212, 0.3), transparent);
+            margin: 60px 0;
+        }
+        
+        footer {
+            background-color: var(--darker-bg);
+            color: var(--text-secondary);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent);
+            color: #121212;
+            transform: translateY(-3px);
+        }
+        
+        ::selection {
+            background-color: var(--accent);
+            color: #121212;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+        
+        .card-header {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#overview">
+                <i class="fab fa-python me-2"></i>Flask
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#overview">Visão Geral</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Recursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#quickstart">Comece Agora</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#examples">Exemplos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/thanks">Agradecimento</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section" id="overview">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="https://raw.githubusercontent.com/pheralb/svgl/10339a49ac48b84da0426e1ee3b35b4be87a8eb2/static/library/flask-wordmark-dark.svg" alt="Flask Logo" class="flask-logo">
+                </div>
+                <div class="col-lg-6 hero-text">
+                    <h1 class="display-3 fw-bold mb-4">Flask Framework</h1>
+                    <p class="lead mb-4" style="color: var(--text-secondary);">Flask é um micro framework web minimalista escrito em Python. Projetado para ser simples, mas extensível, Flask fornece o essencial para desenvolvimento web sem impor dependências desnecessárias.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#quickstart" class="btn btn-flask btn-lg">
+                            <i class="fas fa-code me-2"></i>Comece a Codar
+                        </a>
+                        <a href="https://flask.palletsprojects.com/" target="_blank" class="btn btn-outline-flask btn-lg">
+                            <i class="fas fa-book me-2"></i>Docs
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5" id="features">
+        <div class="container py-5">
+            <h2 class="section-title">Por que Flask?</h2>
+            <div class="row g-4 mt-5">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-feather-alt"></i>
+                        </div>
+                        <h3>Minimalista</h3>
+                        <p style="color: var(--text-secondary);">Núcleo pequeno e simples - apenas o essencial para aplicações web. Sem sobrecarga desnecessária ou decisões arquiteturais impostas.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <h3>Extensível</h3>
+                        <p style="color: var(--text-secondary);">Arquitetura modular permite adicionar apenas as funcionalidades que você precisa através de extensões bem integradas.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h3>Produtivo</h3>
+                        <p style="color: var(--text-secondary);">Configuração mínima e curva de aprendizado suave permitem começar a desenvolver rapidamente.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row g-4 mt-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Pythonico</h3>
+                        <p style="color: var(--text-secondary);">API simples e intuitiva que segue as melhores práticas e padrões Python.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Seguro</h3>
+                        <p style="color: var(--text-secondary);">Proteção contra CSRF, saneamento de dados e boas práticas de segurança implementadas.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3>WSGI</h3>
+                        <p style="color: var(--text-secondary);">Compatível com WSGI, permitindo deploy em diversos servidores como Gunicorn, uWSGI ou Waitress.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5" id="quickstart" style="background-color: var(--darker-bg);">
+        <div class="container py-5">
+            <h2 class="section-title">Primeiros Passos</h2>
+            <div class="row g-4 mt-4">
+                <div class="col-lg-6">
+                    <h3>Instalação</h3>
+                    <p style="color: var(--text-secondary);">Configure seu ambiente e instale o Flask em poucos passos:</p>
+                    <div class="code-block mb-4">
+                        <span class="comment"># Crie e ative um ambiente virtual (recomendado)</span><br>
+                        <span class="keyword">python</span> -m venv venv<br>
+                        <span class="keyword">source</span> venv/bin/activate  <span class="comment"># Linux/Mac</span><br>
+                        <span class="comment"># ou .\venv\Scripts\activate no Windows</span><br><br>
+                        
+                        <span class="comment"># Instale o Flask</span><br>
+                        pip install flask
+                    </div>
+                    
+                    <h3 class="mt-5">Estrutura Básica</h3>
+                    <p style="color: var(--text-secondary);">Um aplicativo Flask mínimo tem esta estrutura:</p>
+                    <div class="code-block">
+                        <span class="keyword">from</span> flask <span class="keyword">import</span> Flask<br><br>
+                        
+                        app = Flask(<span class="string">__name__</span>)<br><br>
+                        
+                        <span class="keyword">@app</span>.route(<span class="string">'/'</span>)<br>
+                        <span class="keyword">def</span> <span class="function">home</span>():<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">"Olá, Flask!"</span><br><br>
+                        
+                        <span class="keyword">if</span> <span class="string">__name__</span> == <span class="string">'__main__'</span>:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;app.run(debug=<span class="keyword">True</span>)
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3>Executando Seu App</h3>
+                    <p style="color: var(--text-secondary);">Salve o código em <code>app.py</code> e execute:</p>
+                    <div class="code-block mb-4">
+                        python app.py
+                    </div>
+                    <p style="color: var(--text-secondary);">Acesse <a href="http://127.0.0.1:5000" style="color: var(--accent);">http://127.0.0.1:5000</a> no navegador para ver seu aplicativo em ação.</p>
+                    
+                    <div class="card mt-5">
+                        <div class="card-header">
+                            <i class="fas fa-lightbulb me-2" style="color: var(--accent);"></i>Dicas Rápidas
+                        </div>
+                        <div class="card-body">
+                            <h5>Modo Desenvolvimento</h5>
+                            <p style="color: var(--text-secondary);">Ative o modo debug para:</p>
+                            <ul style="color: var(--text-secondary);">
+                                <li>Recarregamento automático ao editar código</li>
+                                <li>Páginas de erro detalhadas</li>
+                                <li>Debugger interativo para troubleshooting</li>
+                            </ul>
+                            <div class="code-block mt-3">
+                                <span class="comment"># Ative via código</span><br>
+                                app.run(debug=<span class="keyword">True</span>)<br><br>
+                                
+                                <span class="comment"># Ou via variável de ambiente</span><br>
+                                export FLASK_DEBUG=1  <span class="comment"># Linux/Mac</span><br>
+                                set FLASK_DEBUG=1     <span class="comment"># Windows</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5" id="examples">
+        <div class="container py-5">
+            <h2 class="section-title">Exemplos Práticos</h2>
+            <div class="row g-4 mt-4">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h3>Roteamento Dinâmico</h3>
+                            <div class="code-block">
+                                <span class="keyword">@app</span>.route(<span class="string">'/user/&lt;username&gt;'</span>)<br>
+                                <span class="keyword">def</span> <span class="function">show_user</span>(username):<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">f'Usuário: {username}'</span><br><br>
+                                
+                                <span class="keyword">@app</span>.route(<span class="string">'/post/&lt;int:post_id&gt;'</span>)<br>
+                                <span class="keyword">def</span> <span class="function">show_post</span>(post_id):<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">f'Post #{post_id}'</span><br><br>
+                                
+                                <span class="keyword">@app</span>.route(<span class="string">'/path/&lt;path:subpath&gt;'</span>)<br>
+                                <span class="keyword">def</span> <span class="function">show_subpath</span>(subpath):<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">f'Subpath: {subpath}'</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h3>Templates Jinja2</h3>
+                            <div class="code-block">
+                                <span class="comment"># app.py</span><br>
+                                <span class="keyword">from</span> flask <span class="keyword">import</span> render_template<br><br>
+                                
+                                <span class="keyword">@app</span>.route(<span class="string">'/hello/&lt;name&gt;'</span>)<br>
+                                <span class="keyword">def</span> <span class="function">hello</span>(name):<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> render_template(<span class="string">'hello.html'</span>, name=name)<br><br>
+                                
+                                <span class="comment"># templates/hello.html</span><br>
+                                &lt;!DOCTYPE html&gt;<br>
+                                &lt;html&gt;<br>
+                                &lt;head&gt;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Hello Flask&lt;/title&gt;<br>
+                                &lt;/head&gt;<br>
+                                &lt;body&gt;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Olá, {{ name }}!&lt;/h1&gt;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;{% if name == 'admin' %}<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Acesso especial concedido&lt;/p&gt;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;{% endif %}<br>
+                                &lt;/body&gt;<br>
+                                &lt;/html&gt;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h3>Manipulação de Requisições</h3>
+                            <div class="code-block">
+                                <span class="keyword">from</span> flask <span class="keyword">import</span> request<br><br>
+                                
+                                <span class="keyword">@app</span>.route(<span class="string">'/login'</span>, methods=[<span class="string">'GET'</span>, <span class="string">'POST'</span>])<br>
+                                <span class="keyword">def</span> <span class="function">login</span>():<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> request.method == <span class="string">'POST'</span>:<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">f"Usuário {request.form['username']} logado!"</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">'''<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;form method="post"&gt;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Usuário: &lt;input type="text" name="username"&gt;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button type="submit"&gt;Login&lt;/button&gt;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/form&gt;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;'''</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h3>API REST Simples</h3>
+                            <div class="code-block">
+                                <span class="keyword">from</span> flask <span class="keyword">import</span> Flask, jsonify, request<br><br>
+                                
+                                app = Flask(<span class="string">__name__</span>)<br><br>
+                                
+                                tasks = [<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<span class="string">'id'</span>: 1, <span class="string">'title'</span>: <span class="string">'Aprender Flask'</span>, <span class="string">'done'</span>: <span class="keyword">False</span>},<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<span class="string">'id'</span>: 2, <span class="string">'title'</span>: <span class="string">'Construir API'</span>, <span class="string">'done'</span>: <span class="keyword">False</span>}<br>
+                                ]<br><br>
+                                
+                                <span class="keyword">@app</span>.route(<span class="string">'/tasks'</span>, methods=[<span class="string">'GET'</span>])<br>
+                                <span class="keyword">def</span> <span class="function">get_tasks</span>():<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> jsonify({<span class="string">'tasks'</span>: tasks})<br><br>
+                                
+                                <span class="keyword">@app</span>.route(<span class="string">'/tasks'</span>, methods=[<span class="string">'POST'</span>])<br>
+                                <span class="keyword">def</span> <span class="function">create_task</span>():<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> <span class="keyword">not</span> request.json <span class="keyword">or</span> <span class="keyword">not</span> <span class="string">'title'</span> <span class="keyword">in</span> request.json:<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> jsonify({<span class="string">'error'</span>: <span class="string">'Bad request'</span>}), 400<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;task = {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'id'</span>: tasks[-1][<span class="string">'id'</span>] + 1,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'title'</span>: request.json[<span class="string">'title'</span>],<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'done'</span>: <span class="keyword">False</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;tasks.append(task)<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> jsonify({<span class="string">'task'</span>: task}), 201
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <h5><i class="fab fa-python me-2"></i>Flask Framework</h5>
+                    <p style="color: var(--text-secondary);">O microframework web para Python. Simples, flexível e bão da conta.</p>
+                    <div class="d-flex">
+                        <a href="https://github.com/pallets/flask" class="social-icon">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://twitter.com/PalletsTeam" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://palletsprojects.com/" class="social-icon">
+                            <i class="fas fa-globe"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="https://flask.palletsprojects.com/" class="footer-link">Documentação</a></li>
+                        <li class="mb-2"><a href="https://flask.palletsprojects.com/en/2.3.x/extensions/" class="footer-link">Extensões</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Recursos</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="https://github.com/mjhea0/awesome-flask" class="footer-link">Awesome Flask</a></li>
+                        <li class="mb-2"><a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world" class="footer-link">Mega Tutorial</a></li>
+                        <li class="mb-2"><a href="https://realpython.com/tutorials/flask/" class="footer-link">Tutoriais Real Python</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-0 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small mb-0" style="color: var(--text-secondary);">&copy; 2025 Apresentação Flask Framework. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
